@@ -1,0 +1,4 @@
+*.py[co]
+*.TODO
+*.sublime-project
+*.sublime-workspace
