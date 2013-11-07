@@ -1,1 +1,1 @@
-from .generic import instance_cache
+from .generic import *
