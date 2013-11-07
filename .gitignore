@@ -2,3 +2,6 @@
 *.TODO
 *.sublime-project
 *.sublime-workspace
+build/
+dist/
+django_relish.egg-info/
