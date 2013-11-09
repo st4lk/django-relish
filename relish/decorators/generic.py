@@ -14,20 +14,36 @@ def instance_cache(func):
 
     Usage example:
 
-    class MyModel(models.Model):
-        name = models.CharField(max_length=20)
+        from relish.decorators import instance_cache
 
-        @instance_cache
-        def first_another(self):
-            # heavy calculation goes here
-            # or hitting the database
-            return AnotherModel.objects.all()[0]
+        class MyModel(models.Model):
+            name = models.CharField(max_length=20)
 
-    my = MyModel.objects.get(id=1)
+            @instance_cache
+            def first_another(self):
+                # heavy calculation goes here
+                # or hitting the database
+                return AnotherModel.objects.all()[0]
 
-    my.first_another() # hits database and saves as instance attr
-    my.first_another() # got from instance saved attr
-    my.first_another() # got from instance saved attr
+        my = MyModel.objects.get(id=1)
+
+        my.first_another() # hits database and saves as instance attr
+        my.first_another() # got from instance saved attr
+        my.first_another() # got from instance saved attr
+
+    Can be used with @property decorator:
+
+        class MyModel(models.Model):
+            # ...
+
+            @property
+            @instance_cache
+            def first_another(self):
+                # ...
+
+        my = MyModel.objects.get(id=1)
+
+        print my.first_another
     """
 
     @wraps(func)
