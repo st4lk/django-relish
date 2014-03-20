@@ -2,14 +2,18 @@
 import os
 import random
 import string
+import datetime
 from django.conf import settings
+from django.utils.encoding import force_str, force_text
 
 path_dict = getattr(settings, 'IMAGE_UPLOAD_TO', {})
 
 
 def upload_to(path):
     """
-    Generates unique ascii filename before saving.
+    Generates unique ascii filename before saving. Supports strftime()
+    formatting as django.db.models.FileField.upload_to does.
+
     Example:
 
         class SomeModel(models.Model):
@@ -30,5 +34,7 @@ def upload_to(path):
             img_path = path_dict.get(instance.__class__.__name__, "images")
         else:
             img_path = path
+        img_path = os.path.normpath(force_text(
+            datetime.datetime.now().strftime(force_str(img_path))))
         return '%s/%s' % (img_path.rstrip('/'), random_fname)
     return upload_callback
