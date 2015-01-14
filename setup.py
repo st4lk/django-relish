@@ -13,11 +13,11 @@ def __read(fname):
 install_requires = __read('requirements.txt').split()
 
 setup(
-    name='django_relish',
+    name='relish',
     author=__author__,
     author_email='alexevseev@gmail.com',
     version=__version__,
-    description='Useful code for django',
+    description='Useful code snippets for django',
     long_description=__read('README.rst'),
     platforms=('Any'),
     packages=find_packages(),
